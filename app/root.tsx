@@ -1,12 +1,13 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import {
+    Links,
+    Meta,
+    Outlet,
+    Scripts,
+    ScrollRestoration,
+} from "@remix-run/react";
 
+import "./../public/samir.css";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
