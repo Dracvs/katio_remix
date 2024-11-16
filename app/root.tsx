@@ -7,7 +7,7 @@ import {
     ScrollRestoration,
 } from "@remix-run/react";
 
-import "./../public/samir.css";
+import "./../public/secretos-para-contar.css";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [

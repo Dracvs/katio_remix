@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { getAllAuthors } from "~/services/authorservice";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,8 +9,30 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+// import { useLoaderData } from "@remix-run/react";
+
+// export function loader() {
+//   return {
+//     planet: "world",
+//     date: new Date(),
+//   };
+// }
+
+// export default function Component() {
+//   const data = useLoaderData<typeof loader>();
+//   //    ^? { planet: string, date: Date }
+// }
+
+export function loader(){
+    return getAllAuthors();
+}
+
 export default function Index() {
-  return (
+  
+    const data = useLoaderData<typeof loader>();
+    
+
+    return (
     <div className="flex h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-16">
         <header className="flex flex-col items-center gap-9">
@@ -17,9 +40,35 @@ export default function Index() {
           <Link to="/autor">
             <button className="btn btn-secondary">Samir es un Auteur</button>
           </Link>
+            <div className="card">
+                <h1>Mi respuesta</h1>
+                tengo: {data.totalElements} elementos
+                {
+                    data.responseElements.map(item =>(
+                        <button key={item.id}>{item.name}</button>
+                    ))
+                }
+                
+            </div>
+          {/* { result.responseElements.map(item => (
+                <button key={item.id}>{item.name}</button>
+            ))
+            } */}
+
+          <img
+              src="/images/secretos_para_contar_color.png"
+              alt="Logo de Secretos para contar"
+              className="block"
+            />
+          <img
+              src="https://daily.jstor.org/wp-content/uploads/2018/05/grimm_little_red_riding_hood.jpg"
+              alt="Caperucinha Bermelha"              
+              className="block max-w-20"
+            />
           <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
             Welcome to <span className="sr-only">Remix</span>
           </h1>
+
           <div className="h-[144px] w-[434px]">
             <img
               src="/logo-light.png"
@@ -30,7 +79,7 @@ export default function Index() {
               src="/logo-dark.png"
               alt="Remix"
               className="hidden w-full dark:block"
-            />
+            />            
           </div>
         </header>
         <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
@@ -141,3 +190,6 @@ const resources = [
     ),
   },
 ];
+
+
+
